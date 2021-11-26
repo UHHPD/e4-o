@@ -111,7 +111,7 @@ std:: vector <double> sredn(4);
   double sumchi;
   sumchi = 0;
   for (int k = 0; k < 4; k++){
-     for (int i=0; i < set_data[k].size()-1; i++) {
+     for (int i=0; i < set_data[k].size(); i++) {
 
          sumchi = sumchi + set_data[k].testchi (datA, i);
 
