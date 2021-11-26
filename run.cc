@@ -102,22 +102,22 @@ std:: vector <double> sredn(4);
   cout << datA.checkCompatibility(datC, n) << " data points from set A and C differ by more than " << n << " s.d." << endl;
   cout << datA.checkCompatibility(datD, n) << " data points from set A and D differ by more than " << n << " s.d." << endl;
   // average 
-  cout << "========Объединение векторов!=============="<< endl;
+  //cout << "========Объединение векторов!=============="<< endl;
 
-    cout << "========Ошибка=============="<< endl;
+  //  cout << "========Ошибка=============="<< endl;
   datA.avg_error(datB,2, datA);
-    cout << "========Сечения=============="<< endl;
+  //  cout << "========Сечения=============="<< endl;
   datA.avg_data(datB,2, datA);
   double sumchi;
   sumchi = 0;
-  for (int i=0; i < datB.size()-1; i++) {
+  for (int i=0; i < datA.size()-1; i++) {
 
-  sumchi = sumchi + datB.testchi (datB, i);
+  sumchi = sumchi + datA.testchi (datA, i);
 
   }
-  double itogchi = sumchi / 52;
-
-  cout << "itogchi = " << itogchi << endl;
+  double itogchi = sumchi / 52 ;
+  cout << itogchi << endl;
+  //cout << "itogchi = " << itogchi << endl;
   
   }
   //summ of all cross-section

@@ -112,7 +112,7 @@ double delta = 0.015;
 
  double Data:: func (double al, double be,double ga,double delta, int i) const {
    double func1 = al + be * ((m_bins[i]+m_bins[i+1])/2) + ga * exp((-1) * delta * ((m_bins[i]+m_bins[i+1])/2));
-   cout << " bins = " << (m_bins[i]+m_bins[i+1])/2 << "Teor =" << func1 << "Data = " <<  m_data [i] << endl;
+  // cout << " bins = " << (m_bins[i]+m_bins[i+1])/2 << "Teor =" << func1 << "Data = " <<  m_data [i] << endl;
   return func1;
  }
  double Data:: testchi (const Data& in3, int i)  {
