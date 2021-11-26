@@ -110,13 +110,18 @@ std:: vector <double> sredn(4);
   datA.avg_data(datB,2, datA);
   double sumchi;
   sumchi = 0;
-  for (int i=0; i < datA.size()-1; i++) {
+  for (int k = 0; k < 4; k++){
+     for (int i=0; i < set_data[k].size()-1; i++) {
 
-  sumchi = sumchi + datA.testchi (datA, i);
+         sumchi = sumchi + set_data[k].testchi (datA, i);
 
+     }
+     double itogchi = sumchi / 52 ;
+     cout << itogchi << endl;
+     sumchi = 0;
   }
-  double itogchi = sumchi / 52 ;
-  cout << itogchi << endl;
+  
+  
   //cout << "itogchi = " << itogchi << endl;
   
   }
