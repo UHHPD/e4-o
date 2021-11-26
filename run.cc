@@ -108,9 +108,16 @@ std:: vector <double> sredn(4);
   datA.avg_error(datB,2, datA);
     cout << "========Сечения=============="<< endl;
   datA.avg_data(datB,2, datA);
+  double sumchi;
+  sumchi = 0;
+  for (int i=0; i < datB.size()-1; i++) {
 
+  sumchi = sumchi + datB.testchi (datB, i);
 
+  }
+  double itogchi = sumchi / 52;
 
+  cout << "itogchi = " << itogchi << endl;
   
   }
   //summ of all cross-section

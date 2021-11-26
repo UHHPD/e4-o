@@ -59,7 +59,7 @@ int Data::checkCompatibility(const Data& in, int n) const {
       if (delta<0) {delta= (-1) * delta;}
       double er = sqrt((m_errors[i] * m_errors[i]) + (in.error(i) * in.error(i)))*n;
       if (delta - er > 0) {schet = schet + 1;}
-      cout << delta-er <<"------->" << schet << endl; 
+      //cout << delta-er <<"------->" << schet << endl; 
       
     }
   
@@ -78,6 +78,8 @@ int Data::checkCompatibility(const Data& in, int n) const {
        double data = (w1 * m_data[i] + w2 * in1.measurement(i)) / (w1 +w2); 
        double errors = sqrt( 1 / (w1+w2));
        cout << data << endl;
+       
+
      }
   
   } else { cout << "Data of  not compatibility" << p << endl;  }
@@ -103,3 +105,17 @@ int Data::checkCompatibility(const Data& in, int n) const {
  
  
 }
+double al = 0.005;
+double be = -0.00001;
+double ga = 0.08;
+double delta = 0.015;
+
+ double Data:: func (double al, double be,double ga,double delta, int i) const {
+   double func1 = al + be * ((m_bins[i]+m_bins[i+1])/2) + ga * exp((-1) * delta * ((m_bins[i]+m_bins[i+1])/2));
+   cout << " bins = " << (m_bins[i]+m_bins[i+1])/2 << "Teor =" << func1 << "Data = " <<  m_data [i] << endl;
+  return func1;
+ }
+ double Data:: testchi (const Data& in3, int i)  {
+   double chi = (m_data[i] - in3.func(al, be, ga, delta, i))*(m_data[i] - in3.func(al, be, ga, delta, i))/(m_errors[i]*m_errors[i]);
+  return chi;
+ }

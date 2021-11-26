@@ -17,8 +17,8 @@ class Data {
   double error(int i) const { return m_errors[i]; }
   int avg_error(  const Data& in1, int n, const Data& in2) const;
   int avg_data(  const Data& in1, int n, const Data& in2) const ;
-  
- 
+  double func (double al, double be,double ga,double delta, int i) const;
+  double testchi (const Data& in3, int i) ;
 
  private:
   Data() {}  // disallow empty data set
