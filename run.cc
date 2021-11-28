@@ -106,9 +106,9 @@ int main() {
   //cout << "========Объединение векторов!=============="<< endl;
 
   //  cout << "========Ошибка=============="<< endl;
-  datA.avg_error(datB,2, datA);
+  datA.avg_error(datD,2, datA);
   //  cout << "========Сечения=============="<< endl;
-  datA.avg_data(datB,2, datA);
+  datA.avg_data(datD,2, datA);
   double sumchi;
   sumchi = 0;
   for (int k = 0; k < 4; k++){
@@ -140,13 +140,13 @@ int main() {
 
    // Sum of vectors AB
   for (int i=0; i<56; i++) {
-    cout << "================================= " << i<< "----------------" <<endl;
+    //cout << "================================= " << i<< "----------------" <<endl;
      double wa = 1 / (datA.error(i)*datA.error(i));
-     cout << "wa = " << wa << "  datAerror "<< datA.error(i) <<endl;
+     //cout << "wa = " << wa << "  datAerror "<< datA.error(i) <<endl;
      double wb = 1 / (datB.error(i)*datB.error(i));
-     cout << "wb = " << wb << "  datBerror "<< datB.error(i) <<endl;
+    // cout << "wb = " << wb << "  datBerror "<< datB.error(i) <<endl;
      dataAB[i] = (wa * datA.measurement(i) + wb * datB.measurement(i))/(wa + wb);
-     cout <<"datA = "<< datA.measurement(i) <<"  datB = "<< datB.measurement(i) << "  Dataab i =  " << dataAB[i] <<endl;
+    // cout <<"datA = "<< datA.measurement(i) <<"  datB = "<< datB.measurement(i) << "  Dataab i =  " << dataAB[i] <<endl;
      errorAB[i] = sqrt (1/(wa+wb));
      //cout << "error AB [i] = " << errorAB[i] <<endl;
   }

@@ -77,7 +77,7 @@ int Data::checkCompatibility(const Data& in, int n) const {
        double w2 = 1 / (in1.measurement(i) * in1.measurement(i));
        double data = (w1 * m_data[i] + w2 * in1.measurement(i)) / (w1 +w2); 
        double errors = sqrt( 1 / (w1+w2));
-       cout << data << endl;
+       //cout << data << endl;
        
 
      }
@@ -98,7 +98,7 @@ int Data::checkCompatibility(const Data& in, int n) const {
        double w2 = 1 / (in1.measurement(i) * in1.measurement(i));
        double data = (w1 * m_data[i] + w2 * in1.measurement(i)) / (w1 +w2); 
        double errors = sqrt( 1 / (w1+w2));
-       cout << errors << endl;
+       //cout << errors << endl;
      }
 
   } else { cout << "Data of  not compatibility" << f << endl;  }
