@@ -63,7 +63,8 @@ void runTests() {
 
 int main() {
   using namespace std;
-std:: vector <double> sredn(4);
+
+
   cout << "******************************************************" << endl;
   runTests();
   cout << "******************************************************" << endl;
@@ -120,11 +121,75 @@ std:: vector <double> sredn(4);
      cout << itogchi << endl;
      sumchi = 0;
   }
-  
-  
+  //AB
+  std:: vector <double> errorAB(datA.size());
+  std:: vector <double> dataAB(datA.size());
+  //std:: vector <double> sredn(4);
+  std:: vector <double> binsAB(datA.size());
+  // CD
+  std:: vector <double> errorCD(datA.size());
+  std:: vector <double> dataCD(datA.size());
+  std:: vector <double> binsCD(datA.size());
+  // ABCD 
+  std:: vector <double> errorABCD(datA.size());
+  std:: vector <double> dataABCD(datA.size());
+  std:: vector <double> binsABCD(datA.size());
+  std:: vector <double> funcABCD(datA.size());
+  std:: vector <double> binABCD(datA.size());
+
+
+   // Sum of vectors AB
+  for (int i=0; i<56; i++) {
+    cout << "================================= " << i<< "----------------" <<endl;
+     double wa = 1 / (datA.error(i)*datA.error(i));
+     cout << "wa = " << wa << "  datAerror "<< datA.error(i) <<endl;
+     double wb = 1 / (datB.error(i)*datB.error(i));
+     cout << "wb = " << wb << "  datBerror "<< datB.error(i) <<endl;
+     dataAB[i] = (wa * datA.measurement(i) + wb * datB.measurement(i))/(wa + wb);
+     cout <<"datA = "<< datA.measurement(i) <<"  datB = "<< datB.measurement(i) << "  Dataab i =  " << dataAB[i] <<endl;
+     errorAB[i] = sqrt (1/(wa+wb));
+     //cout << "error AB [i] = " << errorAB[i] <<endl;
+  }
+   // Sum of vectors CD
+    
+  for (int i=0; i<56; i++) {
+     double wc = 1 / (datC.error(i)*datC.error(i));
+     double wd = 1 / (datD.error(i)*datD.error(i));
+     dataCD[i] = (wc * datC.measurement(i) + wd * datD.measurement(i))/(wc + wd);
+     //cout << "Dataab i =  " << dataAB[i] <<endl;
+     errorCD[i] = sqrt (1/(wc+wd));
+     //cout << "error AB [i] = " << errorCD[i] <<endl;
+  }
+   // Sum of AB and CD
+   
+  for (int i=0; i<56; i++) {
+     //cout << "========================================" << i << endl;
+     double wab = 1 / (errorAB[i]*errorAB[i]);
+     double wcd = 1 / (errorCD[i]*errorCD[i]);
+     dataABCD[i] = (wab * dataAB[i] + wcd * dataCD[i])/(wab + wcd);
+     errorABCD[i] = sqrt (1/(wab+wcd));
+     binABCD[i] = datA.binLow(i);
+     //cout <<"i = "<< i << " bin = " << binABCD[i]<< "dataABCD = " << dataABCD[i] <<endl; 
+  }
+  double alfaABCD = 0.005;
+  double bettaABCD = -0.00001;
+  double gammaABCD = 0.08;
+  double deltaABCD = 0.015;
+  for (int i=0; i<55; i++) {
+    funcABCD[i] = alfaABCD + (bettaABCD * ((binABCD[i]+binABCD[i+1])/2)) + gammaABCD * exp((-1) * deltaABCD * ((binABCD[i]+binABCD[i+1])/2));
+
+  }
+  double sumchiABCD = 0;
+  for (int i=0; i<55; i++) {
+    double chiABCD = (dataABCD[i] - funcABCD[i])*(dataABCD[i] - funcABCD[i])/(errorABCD[i]*errorABCD[i]);
+    sumchiABCD = sumchiABCD + chiABCD;
+    
+  }
+  cout << sumchiABCD / 52 << endl;
   //cout << "itogchi = " << itogchi << endl;
   
-  }
+  
+}
   //summ of all cross-section
   //for(int i = 0; i < 4; i++) {
   //  std::cout<< "___________________________" << endl; 

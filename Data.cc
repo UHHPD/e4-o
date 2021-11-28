@@ -119,3 +119,5 @@ double delta = 0.015;
    double chi = (m_data[i] - in3.func(al, be, ga, delta, i))*(m_data[i] - in3.func(al, be, ga, delta, i))/(m_errors[i]*m_errors[i]);
   return chi;
  }
+
+ 

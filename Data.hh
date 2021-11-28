@@ -19,6 +19,8 @@ class Data {
   int avg_data(  const Data& in1, int n, const Data& in2) const ;
   double func (double al, double be,double ga,double delta, int i) const;
   double testchi (const Data& in3, int i) ;
+  void zapisdata (int i) const; 
+  
 
  private:
   Data() {}  // disallow empty data set
