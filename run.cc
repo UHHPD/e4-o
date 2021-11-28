@@ -127,9 +127,9 @@ int main() {
   //std:: vector <double> sredn(4);
   std:: vector <double> binsAB(datA.size());
   // CD
-  std:: vector <double> errorCD(datA.size());
-  std:: vector <double> dataCD(datA.size());
-  std:: vector <double> binsCD(datA.size());
+  std:: vector <double> errorABC(datA.size());
+  std:: vector <double> dataABC(datA.size());
+  std:: vector <double> binsABC(datA.size());
   // ABCD 
   std:: vector <double> errorABCD(datA.size());
   std:: vector <double> dataABCD(datA.size());
@@ -150,24 +150,24 @@ int main() {
      errorAB[i] = sqrt (1/(wa+wb));
      //cout << "error AB [i] = " << errorAB[i] <<endl;
   }
-   // Sum of vectors CD
+   // Sum of vectors ABC
     
   for (int i=0; i<56; i++) {
+     double wab = 1 / (errorAB[i]*errorAB[i]);
      double wc = 1 / (datC.error(i)*datC.error(i));
-     double wd = 1 / (datD.error(i)*datD.error(i));
-     dataCD[i] = (wc * datC.measurement(i) + wd * datD.measurement(i))/(wc + wd);
+     dataABC[i] = (wab * dataAB[i] + wc * datC.measurement(i))/(wab + wc);
      //cout << "Dataab i =  " << dataAB[i] <<endl;
-     errorCD[i] = sqrt (1/(wc+wd));
+     errorABC[i] = sqrt (1/(wab+wc));
      //cout << "error AB [i] = " << errorCD[i] <<endl;
   }
-   // Sum of AB and CD
+   // Sum of ABCD
    
   for (int i=0; i<56; i++) {
      //cout << "========================================" << i << endl;
-     double wab = 1 / (errorAB[i]*errorAB[i]);
-     double wcd = 1 / (errorCD[i]*errorCD[i]);
-     dataABCD[i] = (wab * dataAB[i] + wcd * dataCD[i])/(wab + wcd);
-     errorABCD[i] = sqrt (1/(wab+wcd));
+     double wabc = 1 / (errorABC[i]*errorABC[i]);
+     double wd = 1 / (datD.error(i)*datD.error(i));
+     dataABCD[i] = (wabc * dataABC[i] + wd*datD.measurement(i))/(wabc + wd);
+     errorABCD[i] = sqrt (1/(wabc+wd));
      binABCD[i] = datA.binLow(i);
      //cout <<"i = "<< i << " bin = " << binABCD[i]<< "dataABCD = " << dataABCD[i] <<endl; 
   }
@@ -175,12 +175,13 @@ int main() {
   double bettaABCD = -0.00001;
   double gammaABCD = 0.08;
   double deltaABCD = 0.015;
-  for (int i=0; i<55; i++) {
-    funcABCD[i] = alfaABCD + (bettaABCD * ((binABCD[i]+binABCD[i+1])/2)) + gammaABCD * exp((-1) * deltaABCD * ((binABCD[i]+binABCD[i+1])/2));
-
+  //binABCD[56]=305; 
+  for (int i=0; i<56; i++) {
+    funcABCD[i] = alfaABCD + (bettaABCD * datA.binCenter(i)) + gammaABCD * exp((-1) * deltaABCD * datA.binCenter(i));
+    cout << "I = "<< i << "Teor =   "<< funcABCD [i] <<"prakt =  " << dataABCD[i] << endl;
   }
   double sumchiABCD = 0;
-  for (int i=0; i<55; i++) {
+  for (int i=0; i<56; i++) {
     double chiABCD = (dataABCD[i] - funcABCD[i])*(dataABCD[i] - funcABCD[i])/(errorABCD[i]*errorABCD[i]);
     sumchiABCD = sumchiABCD + chiABCD;
     

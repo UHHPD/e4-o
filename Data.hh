@@ -11,7 +11,7 @@ class Data {
   int checkCompatibility(const Data& in, int n) const;
   unsigned int size() const { return m_data.size(); }
   double measurement(int i) const { return m_data[i]; }
-  double binCenter(int i) const { (m_bins[i]+m_bins[i+1])/2; }
+  double binCenter(int i) const { return (m_bins[i]+m_bins[i+1])/2; }
   double binLow(int i) const { return m_bins[i]; }
   double binHigh(int i) const { return m_bins[i+1]; }
   double error(int i) const { return m_errors[i]; }
